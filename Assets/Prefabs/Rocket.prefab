@@ -471,6 +471,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fcab2c1b931015049ad0feb0fd0eb5ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ReloadSceneDelay: 2
 --- !u!1 &8357313928576139109
 GameObject:
   m_ObjectHideFlags: 0

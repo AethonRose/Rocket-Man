@@ -3,7 +3,7 @@ using UnityEngine.SceneManagement;
 
 public class CollisionHandler : MonoBehaviour
 {
-
+    [SerializeField] float NextSceneDelay;
     // Runs On Collision
     void OnCollisionEnter(Collision other) 
     {
@@ -13,16 +13,24 @@ public class CollisionHandler : MonoBehaviour
             case "Friendly":
                 Debug.Log("Friendly");
                 break;
-            case "Fuel":
-                Debug.Log("Fuel");
-                break;
             case "LandingPad":
-                LoadNextLevel();
+                // Call CompleteLevel on collision with LandingPad
+                CompleteLevel();
                 break;
             default:
-                ReloadSceneOnDeath();
+                // Calling StartCrashSequence on default collision with Untagged tag
+                StartCrashSequence();
                 break;
         }
+    }
+
+    // Called on Default Collision - untagged tag
+    void StartCrashSequence()
+    {
+        // Disable Movement On Crash
+        GetComponent<Movement>().enabled = false;
+        // Using Invoke to cause Delay of 1 second
+        Invoke("ReloadSceneOnDeath", 1f);
     }
 
     // Reloads Level On Collision with Untagged objects
@@ -31,6 +39,15 @@ public class CollisionHandler : MonoBehaviour
         // Loads Scene with value of currentSceneIndex
         int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
         SceneManager.LoadScene(currentSceneIndex);
+    }
+
+    // Called on Collision with LandingPad
+    void CompleteLevel()
+    {
+        // Disables movement
+        GetComponent<Movement>().enabled = false;
+        // Invoke LoadNextLevel with NextSceneDelay
+        Invoke("LoadNextLevel", NextSceneDelay);
     }
 
     // Loads Next Level on Collision with LandingPad
