@@ -1,9 +1,13 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class CollisionHandler : MonoBehaviour
 {
+
+    // Runs On Collision
     void OnCollisionEnter(Collision other) 
     {
+        // Switch on other.gameObject.tag
         switch(other.gameObject.tag)
         {
             case "Friendly":
@@ -16,8 +20,16 @@ public class CollisionHandler : MonoBehaviour
                 Debug.Log("LandingPad");
                 break;
             default:
-                Debug.Log("You Blew Up");
+                ReloadSceneOnDeath();
                 break;
         }
+    }
+
+    // Reload Level Method
+    void ReloadSceneOnDeath()
+    {
+        // Loads Scene with value of currentSceneIndex
+        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+        SceneManager.LoadScene(currentSceneIndex);
     }
 }
