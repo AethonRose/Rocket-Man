@@ -4,27 +4,31 @@ using UnityEngine.SceneManagement;
 public class CollisionHandler : MonoBehaviour
 {
     [SerializeField] float nextSceneDelay;
-
     [SerializeField] AudioClip crashSound;
     [SerializeField] AudioClip successSound;
-
     [SerializeField] ParticleSystem crashParticles;
     [SerializeField] ParticleSystem successParticles;
 
     AudioSource audioSource;
 
     bool isTransitioning = false;
+    bool isCollisionDisabled = false;
 
     void Start()
     {
         audioSource = GetComponent<AudioSource>();
     }
 
+    void Update()
+    {
+        CheatManager();
+    }
+
     // Runs On Collision
     void OnCollisionEnter(Collision other) 
     {
-        // If isTransitioning is true do nothing
-        if (isTransitioning) 
+        // If isTransitioning or isCollisionDisabled is true do nothing
+        if (isTransitioning || isCollisionDisabled) 
         {
             return;
         }
@@ -32,7 +36,6 @@ public class CollisionHandler : MonoBehaviour
         switch (other.gameObject.tag)
         {
             case "Friendly":
-                Debug.Log("Friendly");
                 break;
             case "LandingPad":
                 // Call CompleteLevel on collision with LandingPad
@@ -44,19 +47,17 @@ public class CollisionHandler : MonoBehaviour
                 break;
         }
     }
-
-    // Called on Default Collision - untagged tag
-    void StartCrashSequence()
+    
+    void CheatManager()
     {
-        isTransitioning = true;
-
-        playAudioClip(crashSound);
-
-        crashParticles.Play();
-
-        GetComponent<Movement>().enabled = false;
-        // Using Invoke to cause Delay of 1 second
-        Invoke("ReloadSceneOnDeath", 1f);
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            LoadNextLevel();
+        }
+        else if (Input.GetKeyDown(KeyCode.C))
+        {
+            ToggleCollision();
+        }
     }
 
     // Called on Collision with LandingPad
@@ -73,15 +74,22 @@ public class CollisionHandler : MonoBehaviour
         Invoke("LoadNextLevel", nextSceneDelay);
     }
 
-    // Reloads Level On Collision with Untagged objects
-    void ReloadSceneOnDeath()
+    // Called on Default Collision - untagged tag
+    void StartCrashSequence()
     {
-        // Loads Scene with value of currentSceneIndex
-        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
-        SceneManager.LoadScene(currentSceneIndex);
-    }
+        isTransitioning = true;
 
+        playAudioClip(crashSound);
+
+        crashParticles.Play();
+
+        GetComponent<Movement>().enabled = false;
+        // Using Invoke to cause Delay of 1 second
+        Invoke("ReloadSceneOnDeath", 1f);
+    }
+    
     // Loads Next Level on Collision with LandingPad
+    
     void LoadNextLevel()
     {
         // Set nextSceneIndex to currentScenebuildIndex + 1
@@ -95,7 +103,21 @@ public class CollisionHandler : MonoBehaviour
         // LoadScene of nextSceneIndex
         SceneManager.LoadScene(nextSceneIndex);
     }
+    
+    void ToggleCollision()
+    {
+        isCollisionDisabled = !isCollisionDisabled;
+        Debug.Log("isCollisionDisabled = " + isCollisionDisabled);
+    }
 
+    // Reloads Level On Collision with Untagged objects
+    void ReloadSceneOnDeath()
+    {
+        // Loads Scene with value of currentSceneIndex
+        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+        SceneManager.LoadScene(currentSceneIndex);
+    }
+    
     void playAudioClip(AudioClip sound)
     {
         audioSource.Stop();
