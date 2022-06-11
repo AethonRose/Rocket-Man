@@ -4,20 +4,20 @@ using UnityEngine.SceneManagement;
 public class CollisionHandler : MonoBehaviour
 {
     [SerializeField] float nextSceneDelay;
+
     [SerializeField] AudioClip crashSound;
     [SerializeField] AudioClip successSound;
+
     [SerializeField] ParticleSystem crashParticles;
     [SerializeField] ParticleSystem successParticles;
 
     AudioSource audioSource;
-    ParticleSystem particle;
 
     bool isTransitioning = false;
 
     void Start()
     {
         audioSource = GetComponent<AudioSource>();
-        particle = GetComponent<ParticleSystem>();
     }
 
     // Runs On Collision
