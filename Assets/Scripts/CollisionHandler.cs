@@ -3,17 +3,21 @@ using UnityEngine.SceneManagement;
 
 public class CollisionHandler : MonoBehaviour
 {
-    [SerializeField] float NextSceneDelay;
-    [SerializeField] AudioClip CrashSound;
-    [SerializeField] AudioClip SuccessSound;
+    [SerializeField] float nextSceneDelay;
+    [SerializeField] AudioClip crashSound;
+    [SerializeField] AudioClip successSound;
+    [SerializeField] ParticleSystem crashParticles;
+    [SerializeField] ParticleSystem successParticles;
 
     AudioSource audioSource;
+    ParticleSystem particle;
 
     bool isTransitioning = false;
 
     void Start()
     {
         audioSource = GetComponent<AudioSource>();
+        particle = GetComponent<ParticleSystem>();
     }
 
     // Runs On Collision
@@ -45,10 +49,12 @@ public class CollisionHandler : MonoBehaviour
     void StartCrashSequence()
     {
         isTransitioning = true;
-        audioSource.Stop();
-        audioSource.PlayOneShot(CrashSound);
-        GetComponent<Movement>().enabled = false;
 
+        playAudioClip(crashSound);
+
+        crashParticles.Play();
+
+        GetComponent<Movement>().enabled = false;
         // Using Invoke to cause Delay of 1 second
         Invoke("ReloadSceneOnDeath", 1f);
     }
@@ -57,12 +63,14 @@ public class CollisionHandler : MonoBehaviour
     void CompleteLevel()
     {
         isTransitioning = true;
-        audioSource.Stop();
-        audioSource.PlayOneShot(SuccessSound);
-        GetComponent<Movement>().enabled = false;
 
+        playAudioClip(successSound);
+
+        successParticles.Play();
+        
+        GetComponent<Movement>().enabled = false;
         // Invoke LoadNextLevel with NextSceneDelay
-        Invoke("LoadNextLevel", NextSceneDelay);
+        Invoke("LoadNextLevel", nextSceneDelay);
     }
 
     // Reloads Level On Collision with Untagged objects
@@ -86,5 +94,11 @@ public class CollisionHandler : MonoBehaviour
         }
         // LoadScene of nextSceneIndex
         SceneManager.LoadScene(nextSceneIndex);
+    }
+
+    void playAudioClip(AudioClip sound)
+    {
+        audioSource.Stop();
+        audioSource.PlayOneShot(sound);
     }
 }
