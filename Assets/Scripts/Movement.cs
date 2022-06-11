@@ -4,17 +4,17 @@ using UnityEngine;
 
 public class Movement : MonoBehaviour
 {
-
     [SerializeField] float ThrustUp = 1000f;
     [SerializeField] float ThrustRotation = 25f;
+    [SerializeField] AudioClip ThrustSound;
 
     Rigidbody rb;
-    AudioSource thrustSound;
+    AudioSource audioSource;
 
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        thrustSound = GetComponent<AudioSource>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     void Update()
@@ -30,15 +30,15 @@ public class Movement : MonoBehaviour
         if (Input.GetKey(KeyCode.Space))
         {
             rb.AddRelativeForce(Vector3.up * ThrustUp * Time.deltaTime);
-            if(!thrustSound.isPlaying)
+            if(!audioSource.isPlaying)
             {
-                thrustSound.Play();
+                audioSource.PlayOneShot(ThrustSound);
             }
         }
         // If Space !Pressed then stop thrustSound
         else
         {
-            thrustSound.Stop();
+            audioSource.Stop();
         }
     }
 

@@ -4,6 +4,16 @@ using UnityEngine.SceneManagement;
 public class CollisionHandler : MonoBehaviour
 {
     [SerializeField] float NextSceneDelay;
+    [SerializeField] AudioClip CrashSound;
+    [SerializeField] AudioClip SuccessSound;
+
+    AudioSource audioSource;
+
+    void Start()
+    {
+        audioSource = GetComponent<AudioSource>();
+    }
+
     // Runs On Collision
     void OnCollisionEnter(Collision other) 
     {
@@ -27,6 +37,8 @@ public class CollisionHandler : MonoBehaviour
     // Called on Default Collision - untagged tag
     void StartCrashSequence()
     {
+        // Play CrashSound
+        audioSource.PlayOneShot(CrashSound);
         // Disable Movement On Crash
         GetComponent<Movement>().enabled = false;
         // Using Invoke to cause Delay of 1 second
@@ -44,6 +56,8 @@ public class CollisionHandler : MonoBehaviour
     // Called on Collision with LandingPad
     void CompleteLevel()
     {
+        // Play WonLevelSound
+        audioSource.PlayOneShot(SuccessSound);
         // Disables movement
         GetComponent<Movement>().enabled = false;
         // Invoke LoadNextLevel with NextSceneDelay

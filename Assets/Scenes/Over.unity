@@ -523,10 +523,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Obstacle
       objectReference: {fileID: 0}
-    - target: {fileID: 6946332033603050922, guid: e46f64a2b1677b548a4a1e9eea80f33d, type: 3}
-      propertyPath: m_TagString
-      value: Untagged
-      objectReference: {fileID: 0}
     - target: {fileID: 6946332033603050926, guid: e46f64a2b1677b548a4a1e9eea80f33d, type: 3}
       propertyPath: m_RootOrder
       value: 6
@@ -580,14 +576,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1204234067, guid: e55cf8f0ed3601045ab580f7508abcef, type: 3}
-      propertyPath: NextSceneDelay
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 1204234067, guid: e55cf8f0ed3601045ab580f7508abcef, type: 3}
-      propertyPath: ReloadSceneDelay
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 8357313928552866727, guid: e55cf8f0ed3601045ab580f7508abcef, type: 3}
       propertyPath: m_Name
       value: Player
