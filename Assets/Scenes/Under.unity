@@ -523,25 +523,9 @@ PrefabInstance:
       propertyPath: m_Name
       value: Obstacle
       objectReference: {fileID: 0}
-    - target: {fileID: 6946332033603050922, guid: e46f64a2b1677b548a4a1e9eea80f33d, type: 3}
-      propertyPath: m_TagString
-      value: Untagged
-      objectReference: {fileID: 0}
-    - target: {fileID: 6946332033603050924, guid: e46f64a2b1677b548a4a1e9eea80f33d, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 966a359d44bc1af4bb684a0dd039be3f, type: 2}
     - target: {fileID: 6946332033603050926, guid: e46f64a2b1677b548a4a1e9eea80f33d, type: 3}
       propertyPath: m_RootOrder
       value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 6946332033603050926, guid: e46f64a2b1677b548a4a1e9eea80f33d, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 16.547972
-      objectReference: {fileID: 0}
-    - target: {fileID: 6946332033603050926, guid: e46f64a2b1677b548a4a1e9eea80f33d, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 8.457129
       objectReference: {fileID: 0}
     - target: {fileID: 6946332033603050926, guid: e46f64a2b1677b548a4a1e9eea80f33d, type: 3}
       propertyPath: m_LocalPosition.x
@@ -592,14 +576,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1204234063, guid: e55cf8f0ed3601045ab580f7508abcef, type: 3}
-      propertyPath: Loop
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1204234063, guid: e55cf8f0ed3601045ab580f7508abcef, type: 3}
-      propertyPath: m_PlayOnAwake
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 8357313928552866727, guid: e55cf8f0ed3601045ab580f7508abcef, type: 3}
       propertyPath: m_Name
       value: Rocket
@@ -647,26 +623,6 @@ PrefabInstance:
     - target: {fileID: 8357313928552866728, guid: e55cf8f0ed3601045ab580f7508abcef, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8357313928552866729, guid: e55cf8f0ed3601045ab580f7508abcef, type: 3}
-      propertyPath: ThrustUp
-      value: 5250
-      objectReference: {fileID: 0}
-    - target: {fileID: 8357313928552866729, guid: e55cf8f0ed3601045ab580f7508abcef, type: 3}
-      propertyPath: ThrustRotation
-      value: 18
-      objectReference: {fileID: 0}
-    - target: {fileID: 8357313928552866730, guid: e55cf8f0ed3601045ab580f7508abcef, type: 3}
-      propertyPath: m_Drag
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 8357313928552866730, guid: e55cf8f0ed3601045ab580f7508abcef, type: 3}
-      propertyPath: m_Mass
-      value: 9
-      objectReference: {fileID: 0}
-    - target: {fileID: 8357313928552866730, guid: e55cf8f0ed3601045ab580f7508abcef, type: 3}
-      propertyPath: m_AngularDrag
-      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e55cf8f0ed3601045ab580f7508abcef, type: 3}

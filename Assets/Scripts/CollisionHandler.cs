@@ -9,6 +9,8 @@ public class CollisionHandler : MonoBehaviour
 
     AudioSource audioSource;
 
+    bool isTransitioning = false;
+
     void Start()
     {
         audioSource = GetComponent<AudioSource>();
@@ -17,6 +19,11 @@ public class CollisionHandler : MonoBehaviour
     // Runs On Collision
     void OnCollisionEnter(Collision other) 
     {
+        // If isTransitioning is true do nothing
+        if (isTransitioning) 
+        {
+            return;
+        }
         // Switch on other.gameObject.tag
         switch (other.gameObject.tag)
         {
@@ -37,12 +44,25 @@ public class CollisionHandler : MonoBehaviour
     // Called on Default Collision - untagged tag
     void StartCrashSequence()
     {
-        // Play CrashSound
+        isTransitioning = true;
+        audioSource.Stop();
         audioSource.PlayOneShot(CrashSound);
-        // Disable Movement On Crash
         GetComponent<Movement>().enabled = false;
+
         // Using Invoke to cause Delay of 1 second
         Invoke("ReloadSceneOnDeath", 1f);
+    }
+
+    // Called on Collision with LandingPad
+    void CompleteLevel()
+    {
+        isTransitioning = true;
+        audioSource.Stop();
+        audioSource.PlayOneShot(SuccessSound);
+        GetComponent<Movement>().enabled = false;
+
+        // Invoke LoadNextLevel with NextSceneDelay
+        Invoke("LoadNextLevel", NextSceneDelay);
     }
 
     // Reloads Level On Collision with Untagged objects
@@ -51,17 +71,6 @@ public class CollisionHandler : MonoBehaviour
         // Loads Scene with value of currentSceneIndex
         int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
         SceneManager.LoadScene(currentSceneIndex);
-    }
-
-    // Called on Collision with LandingPad
-    void CompleteLevel()
-    {
-        // Play WonLevelSound
-        audioSource.PlayOneShot(SuccessSound);
-        // Disables movement
-        GetComponent<Movement>().enabled = false;
-        // Invoke LoadNextLevel with NextSceneDelay
-        Invoke("LoadNextLevel", NextSceneDelay);
     }
 
     // Loads Next Level on Collision with LandingPad
