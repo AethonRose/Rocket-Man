@@ -1491,8 +1491,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb490323339b92a4e81469dd8882b25d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementVector: {x: -10, y: 0, z: 0}
-  movementFactor: 0
+  movementVector: {x: -8, y: 0, z: 0}
+  period: 4
 --- !u!65 &876532947
 BoxCollider:
   m_ObjectHideFlags: 0

@@ -5,21 +5,28 @@ using UnityEngine;
 public class Oscillator : MonoBehaviour
 {
     [SerializeField] Vector3 movementVector;
-    [SerializeField] [Range(0,1)] float movementFactor;
+    [SerializeField] float period = 2f;
 
     Vector3 startingPosition;
-    
-    // Start is called before the first frame update
+    float movementFactor;
+
     void Start()
     {
         startingPosition = transform.position;
         Debug.Log(startingPosition);
     }
 
-    // Update is called once per frame
     void Update()
     {
-        Vector3 offset = movementVector * movementFactor;
-        transform.position = startingPosition + offset;
+        // Some Sin wave shit using tau cause PI is wrong?
+        float cycles = Time.time / period; //continually growing over time
+        const float tau = Mathf.PI * 2; // const value of 6.283
+
+        float sinWave = Mathf.Sin(cycles * tau); // going from -1 to 1
+        movementFactor = (sinWave + 1f) / 2f; // recalculated to go from 0 to 1
+
+        Vector3 offset = movementVector * movementFactor; // setting offset
+
+        transform.position = startingPosition + offset; // setting new position
     }
 }
