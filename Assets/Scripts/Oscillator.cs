@@ -18,6 +18,12 @@ public class Oscillator : MonoBehaviour
 
     void Update()
     {
+        // Fixes NaN error if period = 0
+        if (period <= Mathf.Epsilon) // using Mathf.Epsilon since period is of float type and Epsilon is smallest float number  
+        { 
+            return; 
+        } 
+
         // Some Sin wave shit using tau cause PI is wrong?
         float cycles = Time.time / period; //continually growing over time
         const float tau = Mathf.PI * 2; // const value of 6.283
